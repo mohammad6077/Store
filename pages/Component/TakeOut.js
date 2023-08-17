@@ -62,7 +62,14 @@ const TakeOut = () => {
     //-------------------------------------------------------------------------(To get the last order number added from database).
     const [lastOrderFetch, setLastOrderFetch] = useState([])
     Fetch(`${user}/Input and output data/Output`, setLastOrderFetch)
-    const countLastOrder = lastOrderFetch.length
+    var arrayKey = []
+    lastOrderFetch.forEach(e=>{
+
+        arrayKey.push(...e.key)
+    })
+    const largestNumber = Math.max(...arrayKey) + 1;
+
+
     //--------------------------------------------------------------------------- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     //-------------------------------------------------------------------------------------(To handle send the order to database).
     const handleSendOrder = () => {
@@ -72,8 +79,8 @@ const TakeOut = () => {
             items.push(e.name)
             qtns.push(e.qtn)
         })
-        set(ref(data, `${user}/Input and output data/Output/${countLastOrder}`), {
-            id: countLastOrder,
+        set(ref(data, `${user}/Input and output data/Output/${largestNumber}`), {
+            id: largestNumber,
             items: items,
             qtn: qtns,
             date: date,
